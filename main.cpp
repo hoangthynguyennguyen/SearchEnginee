@@ -1,10 +1,3 @@
-#include "menu.h"
-#include "button.h"
-int main()
-{
-
-	Menu menu;
-	_getch();
-
-	return 0;
-}
+//Final Project: Mini Search Engine
+//Course: CS163_17CTT
+//Group: 14
