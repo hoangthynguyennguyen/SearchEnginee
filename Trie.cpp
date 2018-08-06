@@ -40,7 +40,7 @@ bool IsNumber(char key) //check the character after "." is a number
 //Insert a word to trie
 void CreateTrieTree(trieNode *&root, string key) {
 	trieNode *cur = root;
-	for (int i = 0; i < key.length()-1; ++i)
+	for (int i = 0; i < key.length()-1; ++i)  //kp_6/8/2018: why minus one?
 	{
 		int index = charToIndex(key[i]);
 		if (!cur->next[index]) { //cur->next[index] == NULL, this gate hasn't been opened yet, open
