@@ -53,9 +53,14 @@ void insert(trieNode *&root, string key);
 //Search for a key, return TRUE if 'key' in the trie else return FALSE
 bool search(trieNode* root, string key);
 
+//compare score to sort the display vector
+bool scoreCompare(const displayedItem &item1, const displayedItem &item2);
 
+//highlight keyword with bright color then convert to the normal color
+void makeColor(int colorCode);
 
-
+//cout a sentence with keyword highlighted
+void highLight(string sentence, string keyword);
 //AnhThu
 void DataTree(trieNode *&root, ifstream &fin);
 void SentenceTree(trieNode *&root, string sen);

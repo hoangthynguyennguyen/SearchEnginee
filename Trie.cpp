@@ -67,6 +67,32 @@ bool search(trieNode* root, string key) {
 
 }
 
+//compare score to sort the display vector
+bool scoreCompare(const displayedItem &item1, const displayedItem &item2) {
+	return item1.score > item2.score;
+}
+
+//highlight keyword with bright color then convert to the normal color
+void makeColor(int colorCode) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorCode);
+}
+
+//cout a sentence with keyword highlighted
+void highLight(string sentence, string keyword) {
+	stringstream ss(sentence);
+	string singleWord;
+	while (ss >> singleWord) {
+		if (singleWord == keyword) {
+			makeColor(14); //our group color :))
+			cout << " " << keyword;
+			makeColor(7); //return to normal color for the rest
+		}
+		else {
+			cout << " " << singleWord;
+		}
+	}
+}
+
 //Retrieval process: find out files that contains the found KEY/QUERY
 void retrieval(string key, vector<displayedItem> &display)
 {
@@ -120,17 +146,34 @@ void retrieval(string key, vector<displayedItem> &display)
 	}
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	//SetConsoleTextAttribute(hConsole, 7);
-	SetConsoleTextAttribute(hConsole, 2); //green
-	cout << "	********************************************************************************************" << endl;
-	SetConsoleTextAttribute(hConsole, 6);//yellow
-	cout << "						FINAL PROJECT" << endl;
-	SetConsoleTextAttribute(hConsole, 3);//coban
-	cout << "	********************************************************************************************" << endl;
-	for (int i = 0; i < display.size(); ++i) {
-		cout << display[i].title << endl
-			<< "\"..." << display[i].sentenceContainKey << "...\"" << endl << endl
-			<< "_From file: " << display[i].fileName << endl
-			<< "_Score: " << display[i].score << endl << endl << endl << endl << endl;
+	//SetConsoleTextAttribute(hConsole, 2); //green --- choose 10(green) or 11(blue) or 13(purple) or 14(yellow) to highlight
+	//cout << "	********************************************************************************************" << endl;
+	//SetConsoleTextAttribute(hConsole, 6);//yellow
+	//cout << "						FINAL PROJECT" << endl;
+	//SetConsoleTextAttribute(hConsole, 7); // 15: bright white
+	//cout << "	********************************************************************************************" << endl;
+	
+	sort(display.begin(), display.end(), scoreCompare);
+	if (display.size() >= 5) {
+		for (int i = 0; i < 5; ++i) {  //display.size() must be greater than 5
+			cout << display[i].title << endl
+				<< "\"...";
+				//<< "\"..." << display[i].sentenceContainKey << "...\"" << endl << endl
+				//<< "_From file: " << display[i].fileName << endl
+				//<< "_Score: " << display[i].score << endl << endl << endl << endl << endl;
+			highLight(display[i].sentenceContainKey, key);
+			cout << "...\"" << endl << endl
+				<< "_From file: " << display[i].fileName << endl
+				<< "_Score: " << display[i].score << endl << endl << endl << endl << endl;
+		}
+	}
+	else {
+		for (int i = 0; i < display.size(); ++i) {  //display.size() must be greater than 5
+			cout << display[i].title << endl
+				<< "\"..." << display[i].sentenceContainKey << "...\"" << endl << endl
+				<< "_From file: " << display[i].fileName << endl
+				<< "_Score: " << display[i].score << endl << endl << endl << endl << endl;
+		}
 	}
 }
 
