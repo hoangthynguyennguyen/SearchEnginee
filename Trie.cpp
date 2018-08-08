@@ -156,8 +156,10 @@ void retrieval(string key, vector<displayedItem> &display)
 	sort(display.begin(), display.end(), scoreCompare);
 	if (display.size() >= 5) {
 		for (int i = 0; i < 5; ++i) {  //display.size() must be greater than 5
-			cout << display[i].title << endl
-				<< "\"...";
+			makeColor(3); //dark blue
+			cout << display[i].title << endl;
+			makeColor(7);
+			cout << "\"...";
 				//<< "\"..." << display[i].sentenceContainKey << "...\"" << endl << endl
 				//<< "_From file: " << display[i].fileName << endl
 				//<< "_Score: " << display[i].score << endl << endl << endl << endl << endl;
@@ -169,10 +171,15 @@ void retrieval(string key, vector<displayedItem> &display)
 	}
 	else {
 		for (int i = 0; i < display.size(); ++i) {  //display.size() must be greater than 5
-			cout << display[i].title << endl
-				<< "\"..." << display[i].sentenceContainKey << "...\"" << endl << endl
+			makeColor(3); //dark blue
+			cout << display[i].title << endl;
+			makeColor(7);
+			cout << "\"...";
+			highLight(display[i].sentenceContainKey, key);
+			cout << "...\"" << endl << endl
 				<< "_From file: " << display[i].fileName << endl
 				<< "_Score: " << display[i].score << endl << endl << endl << endl << endl;
+
 		}
 	}
 }

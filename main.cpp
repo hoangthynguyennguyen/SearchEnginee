@@ -82,28 +82,29 @@ int main() {
 	*/
 
 	
-	//Kieu Phuong
-	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-	auto start1 = std::chrono::high_resolution_clock::now(); //start counting trie-building time
+	
 
 	//Anh Thu
 
 	trieNode *root = newNode();
 	string searchkey;
 	string continuee = "y";
-
+	clock_t startSearch, endSearch, searchTime;
 
 	cout << "Loading data...Please wait a moment..." << endl;
-	InputData(root);
+	//Kieu Phuong
+	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+	auto start1 = std::chrono::high_resolution_clock::now(); //start counting trie-building time
+
+	InputData(root);  //trie is being built
 	
 	auto end1 = std::chrono::high_resolution_clock::now(); //end counting trie-building time
 
-	auto start2 = std::chrono::high_resolution_clock::now(); //start counting searching time
 	while (continuee == "y") {
 		cout << "Input search key: ";  //need a string query, not a key - getline instead of cin
 		//getline(cin, searchkey, ' ');
 		cin >> searchkey;
-
+		startSearch = clock();
 		if (!search(root, searchkey)) //switch yes & no statement
 			cout << "No" << endl;
 		else {
@@ -113,24 +114,21 @@ int main() {
 			vector<displayedItem> display;
 			retrieval(searchkey, display);
 		}
-		
+		endSearch = clock();
+		searchTime = endSearch - startSearch;
+		makeColor(13);
+		cout << "Searching time: " << (float)searchTime / CLOCKS_PER_SEC * 1000 << "ms" << endl;
+		makeColor(7);
 		cout << "\nDo you want to continue? (y/n)  ";
 		cin >> continuee;
 		cout << endl;
 	}
-	auto end2 = std::chrono::high_resolution_clock::now(); //end counting searching time
-		
-
+	
 	//Kieu Phuong
 	
-	
 	std::chrono::duration<double> diff1 = end1 - start1; //double, duration
+	makeColor(13);
 	cout << "Preprocessing time: " << chrono::duration <double, milli>(diff1).count() << " ms" << endl;
-	std::chrono::duration<double> diff2 = end2 - start2;
-	cout << "Searching time: " << chrono::duration <double, milli>(diff2).count() << " ms" << endl;
-	//cout << chrono::duration <double, nano>(diff).count() << " ns" << endl;
-	//cout << "Time " << setprecision(15) << fixed << (diff.count())*1.0/1000 << "(ms)\n";
-	// chrono now, chrono 
 
 	cin.get();
 	cin.get();
