@@ -1,7 +1,5 @@
 #include "button.h"
 
-
-
 void Button::createButton(const Point &positionFirst, const int &length, const int &height, const string&text){
 	console::gotoxy(positionFirst.x1 - height, positionFirst.y1 - height);
 
@@ -32,6 +30,7 @@ void Button::createButton(const Point &positionFirst, const int &length, const i
 	console::gotoxy(positionFirst.x1 + text_center, positionFirst.y1);
 	cout << text;
 }
+
 void Button::removeButton(const Point &positionFirst, const int&length, const int &height)
 {
 	console::gotoxy(positionFirst.x1 - height, positionFirst.y1 - height);
@@ -85,12 +84,12 @@ Button::Button(const Point &left, const string &text, const int &length, const i
 
 void Button::lightButton()
 {
-	createButton(left1, length1 + 2, height1 + 1);
+	createButton(left1, length1 + 2 , height1 +1 );
 
 }
 void Button::darkButton()
 {
-	removeButton(left1, length1 + 2, height1 + 1);
+	removeButton(left1, length1 +2, height1 +1);
 }
 void Button::condition_of_button()
 {
@@ -99,11 +98,13 @@ void Button::condition_of_button()
 		darkButton();
 		state1 = false;
 	}
+
 	else
 	{
 		lightButton();
 		state1 = true;
 	}
+
 }
 bool Button::stateButton()
 {

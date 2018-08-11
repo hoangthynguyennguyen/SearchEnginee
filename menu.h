@@ -9,7 +9,7 @@ class Menu
 {
 public:
 	Menu();
-	~ Menu();
-	
+	~Menu();
+
 };
 #endif

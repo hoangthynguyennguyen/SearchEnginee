@@ -14,7 +14,7 @@ private:
 	map<string, int>pos;
 	vector < vector<string>> group;
 public:
-	void saveSynonym(string key);
+	void inputSynonym();
 	vector<string> getSyno(string key);
 };
 #endif

@@ -1,10 +1,12 @@
 #include "syno.h"
-void syno::saveSynonym(string key)
+
+void syno::inputSynonym()
 {
-	ifstream fin("synonyms.txt");
+	ifstream fin("Synonyms.txt");
 	if (!fin)
 	{
 		cout << "Can not open file " << endl;
+		return;
 	}
 	int count = 0;
 	vector<string> tokens;
@@ -12,7 +14,7 @@ void syno::saveSynonym(string key)
 	while (getline(fin, line))
 	{
 		count++; // count line number
-		istringstream is(line);
+		istringstream is(line); //split word
 		string word;
 		while (is >> word)
 		{
@@ -20,23 +22,27 @@ void syno::saveSynonym(string key)
 			pos.insert(pair<string, int>(word, count)); // map use to store the position of each word(line number)
 
 		}
-		group.push_back(tokens);// vector 2D: store all position of words
+		group.push_back(tokens);// group: a 2D vector that store all synonyms 
 	}
+	
+	
 	fin.close();
+	
 }
+
 vector<string> syno::getSyno(string key)
 {
 	map<string, int>::iterator it = pos.find(key);
-	vector <string> word;
-	if (pos.find(key) == pos.end()) // if key not found
-	{
-		return vector<string>(1, key);
-	}
-	else
-	{
 
-		int id = pos.begin()->second;
-		word = group.at(id);
+	vector <string> word;
+	if (it == pos.end())// if key not found
+	{
+		return vector <string>(1, key);
 	}
+	int id = it->second;
+
+	for (string a : group.at(id))
+		word.push_back(a);
+
 	return word;
 }

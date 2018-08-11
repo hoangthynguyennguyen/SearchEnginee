@@ -1,15 +1,17 @@
 #ifndef BUTTONSEARCH_H
 #define BUTTONSEARCH_H
 #include<iostream>
+#include<string>
 #pragma once
 #include "button.h"
+#include "menu.h"
 using namespace std;
 
-class search{
+class buttonSearch {
 public:
-	search();
-	
-	~search();
-	
+	buttonSearch();
+
+	~buttonSearch();
+
 };
 #endif
